@@ -44,10 +44,37 @@ async function getTweetsByUsername(username){
 
     `,[username]);
     return result.rows
-}//$1 means prevents sequel injection and refers to the first item (index 0) in the array, which is the second argument in database.query
+}
+//$1 means prevents sequel injection and refers to the first item (index 0) in the array,
+// which is the second argument in database.query
+
+async function postTweet(text,username){
+    const userResult = await database.query(`
+    SELECT
+        users.id
+    FROM 
+        users
+    WHERE 
+        username = $1
+
+    `,[username])
+
+    const user = userResult.rows[0]
+    const tweetResult = await database.query(`
+    INSERT INTO tweets
+        (message,user_id)
+    VALUES
+        ($1,$2)
+    RETURNING 
+        *
+    `,[text, user.id]);
+    const newTweet = tweetResult.rows[0];
+    return newTweet
+}
 
 
 module.exports = {
     getTweets,
     getTweetsByUsername,
+    postTweet
 }
