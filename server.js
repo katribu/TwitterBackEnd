@@ -3,7 +3,7 @@ const {getTweets, getTweetsByUsername, postTweet} = require('./services/database
 const express = require('express')
 const cors = require('cors')
 const app = express()
-const PORT = 3000;
+const PORT = 3333;
 
 app.use(express.json()) // does the json parsing
 app.use(cors()) // can use fetch requests to the server even though front end is using a different host.
