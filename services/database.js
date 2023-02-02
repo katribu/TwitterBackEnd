@@ -72,9 +72,21 @@ async function postTweet(text,username){
     return newTweet
 }
 
+async function getUserByUsername(username){
+    const result = await database.query(`
+    SELECT *
+    FROM users
+    WHERE username = $1
+    `,[username])
+
+    //result.rows = [{id:1,name:'Donald Trump',username:'trump',password:'1234'}]
+    return result.rows[0]
+}
+
 
 module.exports = {
     getTweets,
     getTweetsByUsername,
-    postTweet
+    postTweet,
+    getUserByUsername
 }
