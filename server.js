@@ -4,7 +4,8 @@ const express = require('express')
 const cors = require('cors')
 const jwt = require('jsonwebtoken')
 const app = express()
-const PORT = 3333;
+
+const PORT = process.env.PORT || 3333;
 const APP_SECRET = 'my-secret-key-1234'
 
 app.use(express.json()) // does the json parsing
