@@ -5,6 +5,7 @@ const database = new Pool({
     connectionString: POSTGRES_URL
 })
 
+
 async function getTweets(){
     const result = await database.query(`
     SELECT
